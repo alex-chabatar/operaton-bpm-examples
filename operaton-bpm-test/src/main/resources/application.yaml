@@ -1,0 +1,44 @@
+operaton.bpm:
+  database:
+    # managed by liquibase
+    schema-update: false
+  webapp:
+    index-redirect-enabled: true
+  admin-user:
+    id: admin
+    password: admin
+  filter:
+    create: All Tasks
+  authorization:
+    enabled: true
+  metrics:
+    enabled: true
+    db-reporter-activate: true
+spring:
+  jackson:
+    default-property-inclusion: non_null
+  liquibase:
+    # operaton changesets
+    change-log: db/changelog.xml
+management:
+  endpoint:
+    health:
+      show-details: always
+      probes:
+        enabled: true
+      group:
+        custom:
+          show-components: always
+          show-details: ALWAYS
+    prometheus:
+      access: unrestricted
+  endpoints:
+    web:
+      exposure:
+        include: health,metrics,info,ready,prometheus
+    access:
+      default: unrestricted
+  prometheus:
+    metrics:
+      export:
+        enabled: true
